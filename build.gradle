@@ -1,10 +1,18 @@
+buildscript {
+	ext {
+		queryDslVersion = "5.0.0"
+	}
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.7.1'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	// querydsl
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 	id 'java'
 }
 
-group = 'com.hunseong'
+group = 'com.deadline826'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
@@ -39,8 +47,41 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter'
 
+	//querydsl
+	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
+
+	// google api
+	implementation 'com.google.api-client:google-api-client:1.32.1'
+
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+//tasks.named('test') {
+//	useJUnitPlatform()
+//}
+
+//querydsl
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+	main.java.srcDir querydslDir
+}
+
+configurations {
+	querydsl.extendsFrom compileClasspath
+}
+
+compileQuerydsl {
+	options.annotationProcessorPath = configurations.querydsl
+}
+
+bootJar{
+	archiveBaseName = 'bedi'
+	archiveFileName = 'bedi.jar'
+	archiveVersion = '0.0.1'
 }

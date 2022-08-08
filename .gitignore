@@ -38,3 +38,4 @@ out/
 
 ### SECRET ###
 !**/src/resources/application-secret.properties
+soapui.log

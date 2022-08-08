@@ -1,16 +1,34 @@
 spring:
 
-  main:
-    allow-circular-references: true
+  security:
+    user:
+      name: bedi
+      password: bedi
+
+
+#  datasource:
+#    url: jdbc:mysql://bedi.c1g4vqvq6mqm.ap-northeast-2.rds.amazonaws.com:3306/bedi?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+#    username: bedi
+#    password: bedibedi
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+
   datasource:
-    url: jdbc:mysql://localhost:3306/jwt
+    url: jdbc:mysql://localhost:3306/jwt?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
     username: root
     password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  logging:
+    level:
+      root :
+        debug
 
   jpa:
     hibernate:
       ddl-auto: create
     show-sql: true
+    database: mysql
+
 
     properties:
       hibernate:
